@@ -1,0 +1,77 @@
+public class Solution {
+    public List<Integer> spiralOrder(int[][] matrix) {
+        
+        List<Integer> result = new ArrayList<Integer>();
+        
+        int m = matrix.length;
+        
+        if(m==0)
+            return result;
+            
+        if(m==1){
+            for(int i:matrix[0])
+                result.add(i);
+                
+            return result;
+        }
+        int n = matrix[0].length;
+        if(n==1){
+            for(int i=0;i<m;i++)
+                result.add(matrix[i][0]);
+                
+            return result;
+        }
+        
+        
+        result = solution(result, matrix, 0,0,m-1,n-1);
+        
+        return result;
+    }
+    
+    public List<Integer> solution (List<Integer> list, int[][] array, int startX,int startY, int endX, int endY){
+        if(startX == endX){
+            for(int i = startY;i<=endY; i++){
+                list.add(array[startX][i]);
+            }
+            return list;
+        }
+        
+        if(startY == endY){
+            for(int i = startX;i<=endX; i++){
+                list.add(array[i][startY]);
+            }
+            return list;
+        }
+        
+        int tempStartX = startX;
+        int tempStartY = startY;
+        int tempEndX = endX;
+        int tempEndY = endY;
+        
+        while(startY <=  endY){
+            list.add(array[startX][startY++]);
+        }
+        
+        startX++;
+        while(startX<= endX){
+            list.add(array[startX++][tempEndY]);
+        }
+        
+        endY--;
+        while(endY>= tempStartY){
+            list.add(array[tempEndX][endY--]);
+        }
+        
+        endX--;
+        while(endX > tempStartX){
+            list.add(array[endX--][tempStartY]);
+        }
+        
+        if((tempStartX +1 == tempEndX) || (tempStartY+1 == tempEndY))
+            return list;
+            
+        solution(list,array,tempStartX+1,tempStartY+1, tempEndX-1,tempEndY-1);
+        
+        return list;
+    }
+}

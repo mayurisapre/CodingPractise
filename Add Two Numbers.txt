@@ -1,0 +1,78 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        int sum = 0;
+        int carry = 0;
+        ListNode l1Temp = l1;
+        ListNode l2Temp = l2;
+        ListNode l1Prev = null;
+        ListNode l2Prev = null;
+        
+        while(l1!= null && l2!= null){
+            sum = l1.val + l2.val +carry;
+            carry = (sum)/10;
+            
+            l1.val = (sum)%10;
+            l2.val = (sum)%10;
+            
+            l1Prev = l1;
+            l2Prev = l2;
+            
+            l1 = l1.next;
+            l2 = l2.next;
+        }
+        
+        if(l1!=null || l2!=null){
+            if(l1!=null){
+            while(l1!=null){
+                sum = l1.val+carry;
+                l1.val = (sum)%10;
+                carry = (sum)/10;
+                l1Prev = l1;
+                l1 = l1.next;
+            }
+            if(carry !=0){
+                ListNode newAdd = new ListNode(carry);
+                newAdd.next = null;
+                l1Prev.next = newAdd;
+                return l1Temp;
+            }else{
+                return l1Temp;
+            }
+        }
+        
+        if(l2!=null){
+            while(l2!=null){
+                sum = l2.val + carry;
+                l2.val = (sum)%10;
+                carry = (sum)/10;
+                l2Prev = l2;
+                l2 = l2.next;
+            }
+            if(carry !=0){
+               ListNode newAdd = new ListNode(carry);
+                newAdd.next = null;
+                l2Prev.next = newAdd;
+                return l2Temp;
+            }else{
+                return l2Temp;
+            }
+        }
+        }
+        
+        if(carry !=0){
+            ListNode newAdd = new ListNode(carry);
+            newAdd.next = null;
+            l1Prev.next = newAdd;
+            return l1Temp;
+        }
+             return l1Temp;
+    }
+}

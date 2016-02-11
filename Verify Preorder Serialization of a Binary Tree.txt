@@ -1,0 +1,46 @@
+public class Solution {
+    public boolean isValidSerialization(String preorder) {
+        if(preorder.equals("#"))
+            return true;
+        
+        String[] arr = preorder.split(",");
+        
+        //if(arr.length%2 == 0)
+        //    return false;
+        
+        String top = "";
+        String one = "";
+        
+        Stack<String> stack = new Stack<String>();
+        
+        for(int i=0;i<arr.length;i++){
+            if(!stack.empty())
+                top = stack.peek();
+                
+            stack.push(arr[i]);
+            
+            while(stack.peek().equals("#") && top.equals("#"))
+            {
+                stack.pop();
+                stack.pop();
+                
+                if(stack.empty())
+                    return false;
+                
+                stack.pop();
+                
+                if(stack.empty() && i == arr.length-1)
+                    return true;
+                
+                top = "";
+                
+                if(!stack.empty())    
+                    top = stack.peek();
+                stack.push("#");
+            }
+            
+        }
+    
+    return false;
+}
+}

@@ -1,0 +1,28 @@
+public class Solution {
+    public String countAndSay(int n) {
+        
+        int count = 1;
+        String prev = "1";
+        String result = "";
+        int counter = 0;
+        
+        for(count = 2;count<=n;count++){
+            int length = prev.length();
+            for(int i=0;i<length;i++){
+                char c = prev.charAt(i);
+                counter = 1;
+                i++;
+                while(i<length && prev.charAt(i)==c){
+                    i++;
+                    counter++;
+                }
+                
+                result = result + counter + c;
+                i--;
+            }
+            prev = result;
+            result = "";
+        }
+        return prev;
+    }
+}
