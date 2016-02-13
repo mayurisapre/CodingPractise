@@ -1,0 +1,51 @@
+/**
+ * Definition for binary tree
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+ import java.util.*;
+
+public class BSTIterator {
+    public Stack<TreeNode> list;
+    
+    public BSTIterator(TreeNode root) {
+        list = new Stack<TreeNode>();
+        while(root!=null){
+            list.push(root);
+            root = root.left;
+        }
+    }
+
+    /** @return whether we have a next smallest number */
+    public boolean hasNext() {
+        
+        if(list.isEmpty())
+            return false;
+        return true;
+    }
+
+    /** @return the next smallest number */
+    public int next() {
+        TreeNode tree = list.pop();
+        int result = tree.val;
+        if(tree.right!=null){
+            list.push(tree.right);
+            tree = tree.right;
+            while(tree.left!=null){
+                list.push(tree.left);
+                tree = tree.left;
+            }
+        }
+        return result;
+    }
+}
+
+/**
+ * Your BSTIterator will be called like this:
+ * BSTIterator i = new BSTIterator(root);
+ * while (i.hasNext()) v[f()] = i.next();
+ */
