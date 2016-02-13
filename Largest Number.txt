@@ -1,0 +1,39 @@
+public class Solution{
+    public String largestNumber(int[] nums) {
+        
+        if(nums.length == 1)
+            return String.valueOf(nums[0]);
+        
+        String[] array = new String[nums.length];
+        int counter = 0;
+        String result = "";
+        
+        for(int i : nums){
+            String new1 = String.valueOf(i);
+            array[counter++] = new1;
+        }
+        
+        Arrays.sort(array, new Comparator<String>(){
+            public int compare(String one, String two){
+        String oneTwo = one + two;
+        String twoOne = two + one;
+        return twoOne.compareTo(oneTwo);}
+        });
+        
+        for(String i: array){
+            result = result + i;
+        }
+        
+        counter = 0;
+        while(counter<result.length()-1 && result.charAt(counter)=='0'){
+            counter++;
+        }
+        
+        result = result.substring(counter);
+        
+        if(result.equals(""))
+            return "0";
+        else
+            return result;
+    }
+}
