@@ -1,0 +1,28 @@
+public class Solution {
+    public void sortColors(int[] nums) {
+        
+        int pointer = 0;
+        int currentPosition = 0;
+        int color = 0;
+        int length = nums.length;
+        int temp;
+        
+        for(currentPosition = 0;currentPosition<length;currentPosition++){
+            pointer = currentPosition;
+            while(pointer<length && currentPosition<length){
+                if(nums[pointer]==color){
+                    if(pointer!=currentPosition){
+                        temp = nums[currentPosition];
+                        nums[currentPosition] = nums[pointer];
+                        nums[pointer] = temp;
+                    }
+                    currentPosition++;
+                }
+                pointer++;
+            }
+            
+            color++;
+            currentPosition--; 
+        }
+    }
+}
