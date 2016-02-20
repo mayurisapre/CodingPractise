@@ -1,0 +1,30 @@
+public class Solution {
+    public int longestConsecutive(int[] nums) {
+        
+        Set<Integer> set = new HashSet<Integer>();
+        int start, end;
+        int longestLength = Integer.MIN_VALUE;
+        
+        for(int i:nums){
+            set.add(i);
+        }
+        
+        for(int i:nums){
+            start = i-1;
+            end = i+1;
+            
+            while(set.contains(start)){
+                set.remove(start);
+                start--;
+            }
+            
+            while(set.contains(end)){
+                set.remove(end);
+                end++;
+            }
+            
+            longestLength = longestLength>end-start-1?longestLength:end-start-1;
+        }
+        return longestLength;
+    }
+}
