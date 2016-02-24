@@ -1,0 +1,53 @@
+public class Solution {
+    
+    public int findKthLargest(int[] nums, int k) {
+        int expected = nums.length - k;
+        
+        if(nums.length==0)
+            return 0;
+        
+        return returnKthElement(nums, 0, nums.length-1, expected);
+    }
+    
+    public int returnKthElement(int[] nums, int start, int end, int expected){
+    	if(start == expected && end == expected)
+    		return nums[start];
+        
+        int pivot = nums[start];
+        int temp,tempStart = start;
+        int tempEnd = end;
+        start++;
+        
+        while(end>start){
+            while(end>start && nums[start]<pivot){
+                start++;
+            }
+            
+            while(end>start && nums[end]>pivot){
+                end--;
+            }
+            
+            if(start<end){
+            	temp = nums[start];
+                nums[start] = nums[end];
+                nums[end] = temp;
+                start++;
+                end--;
+            }
+        }
+        
+        start = nums[start]<pivot?start:--start;
+        		
+        temp = nums[start];
+        nums[start] = pivot;
+        nums[tempStart] = temp;
+        
+        if(start==expected){
+            return nums[start];
+        }else if(start > expected){
+            return returnKthElement(nums, tempStart, start-1, expected);
+        }else{
+            return returnKthElement(nums, start+1, tempEnd, expected);
+        }
+    }
+}
