@@ -1,0 +1,16 @@
+public class Solution {
+    public String convertToTitle(int n) {
+        
+        String result = "";
+        int add = 0;
+        
+        while(n!=0){
+            add = (n-1)%26;
+            result = (char)(add+65) + result;
+            n = (n-1)/26;
+        }
+        
+        return result;
+        
+    }
+}

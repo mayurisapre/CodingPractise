@@ -1,0 +1,20 @@
+public class Solution {
+    public boolean isUgly(int num) {
+        
+        int[] array = {5,3,2};
+        int iCounter = 0;
+        
+        while(num>1){
+            while(iCounter<3 && num%array[iCounter++]!=0);
+            if(num%array[--iCounter] == 0){
+                num = num/array[iCounter];
+                iCounter = 0;
+            }else{
+                break;
+            }
+        }
+        if(num==1)
+            return true;
+        return false;
+    }
+}

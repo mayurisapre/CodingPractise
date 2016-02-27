@@ -1,0 +1,36 @@
+public class Solution {
+    public int lengthOfLastWord(String s) {
+        String[] array = s.split(" ");
+        
+        if(array.length==0)
+            return 0;
+            
+        return array[array.length-1].length();
+    }
+}
+
+
+**********************************************************
+
+public class Solution {
+    public int lengthOfLastWord(String s) {
+        
+        if(s.equals(""))
+            return 0;
+            
+        int end = s.length()-1;
+        int temp = end;
+        
+        while(end >=0 && s.charAt(end)==' '){
+            end--;
+        }
+        
+        temp = end;
+        
+        while(end >=0 && s.charAt(end)!=' '){
+            end--;
+        }
+        
+        return temp-end;
+    }
+}
