@@ -1,0 +1,24 @@
+public class Solution {
+    public String reverseWords(String s) {
+        String[] array = s.split(" ");
+        
+        s = s.trim();
+        
+        StringBuilder result = new StringBuilder();
+        
+        if(s.length()==0 || s.length()==1)
+            return s;
+        
+        for (String str: array){
+            if(str.equals(""))
+                continue;
+            result.insert(0,str);
+            result.insert(0," ");
+        }
+        
+        String newOne = new String(result);
+        newOne = newOne.trim();
+        
+        return newOne;
+    }
+}

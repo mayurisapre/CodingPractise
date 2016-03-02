@@ -1,0 +1,25 @@
+public class Solution {
+    public int maxArea(int[] height) {
+        
+        if(height.length==0 || height.length==1)
+            return 0;
+        
+        int endPoint = height.length-1;
+        int maxArea = Integer.MIN_VALUE;
+        int start = 0;
+        
+        
+        while(start<endPoint){
+            maxArea = Math.max((Math.min(height[start],height[endPoint]) * (endPoint-start)),maxArea);  
+            
+            if(height[start]<= height[endPoint]){
+                start++;
+            }else{
+                endPoint--;
+            }
+        }
+        
+        return maxArea;
+        
+    }
+}

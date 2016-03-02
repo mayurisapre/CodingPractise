@@ -1,0 +1,42 @@
+public class Solution {
+    public List<String> summaryRanges(int[] nums) {
+        
+        List<String> list = new ArrayList<String>();
+        
+        int start = 0;
+        if(nums.length==0)
+            return list;
+            
+        int currentNo = nums[0];
+        int iCounter = 0;
+        
+        String str;
+        
+        for(int i=0;i<nums.length;i++){
+            if(nums[i]==currentNo+iCounter){
+                iCounter++;
+                continue;
+            }else{
+                if(currentNo!=nums[i-1]){
+                    str = currentNo + "->" + nums[i-1];    
+                }else{
+                    str = "" + currentNo;
+                }
+                
+                list.add(str);
+                currentNo = nums[i];
+                iCounter = 1;
+            }
+        }
+        
+        if(currentNo==nums[nums.length-1]){
+            str = "" + currentNo;
+        }else{
+            str = "" + currentNo + "->" + nums[nums.length-1];
+        }
+        
+        list.add(str);
+        
+        return list;
+    }
+}
