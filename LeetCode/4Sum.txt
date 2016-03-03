@@ -1,0 +1,52 @@
+public class Solution {
+    public List<List<Integer>> fourSum(int[] nums, int target) {
+        List<List<Integer>> list = new ArrayList<>();
+        
+        if(nums.length<4)
+            return list;
+        
+        Arrays.sort(nums);
+        
+        int one = 0;
+        int two = 0;
+        int three = 0;
+        int four = 0;
+        int sum = 0;
+        
+        for(one = 0;one<=nums.length-4;one++){
+            if(one>0 && nums[one]==nums[one-1]){
+                continue;
+            }
+            
+            for(two = one+1;two<=nums.length-3;two++){
+                if(two>=one+2 && nums[two]==nums[two-1])			//This one statement made solution from 70ms to 10ms
+                    continue;
+                    
+                int rem = target -(nums[one] + nums[two]);
+                
+                three = two+1;
+                four = nums.length-1;
+                
+                while(three<four){
+                    if(2*nums[three]>rem || 2*nums[four]<rem)
+                        break;
+                    sum = nums[three] + nums[four];
+                    
+                    if(sum==rem){
+                        list.add(Arrays.asList(nums[one],nums[two],nums[three],nums[four]));
+                        
+                        while(four>three && nums[four]==nums[--four]);
+                        
+                        while(four>three && nums[three]==nums[++three]);
+                    }else if(sum>rem){
+                        while(four>three && nums[four]==nums[--four]);
+                    }else{
+                        while(four>three && nums[three]==nums[++three]);
+                    }
+                }
+            }
+        }
+        
+        return list;
+    }
+}

@@ -1,0 +1,32 @@
+public class Solution {
+    public int compareVersion(String version1, String version2) {
+        
+        String[] V1 = version1.split("\\.");
+        String[] V2 = version2.split("\\.");
+        int iCounter = 0;
+        
+        while(iCounter<V1.length && iCounter<V2.length){
+            if(Integer.parseInt(V1[iCounter])==Integer.parseInt(V2[iCounter])){
+                iCounter++;
+                continue;
+            }else{
+                return Integer.parseInt(V1[iCounter])>Integer.parseInt(V2[iCounter])?1:-1;
+            }
+        }
+        
+        if(V1.length==V2.length)
+            return 0;
+        
+        String[] array = V1.length>V2.length?V1:V2;
+        
+        while(iCounter<=array.length-1){
+            if(Integer.parseInt(array[iCounter])==0){
+                iCounter++;
+                continue;
+            }else{
+                return V1.length>V2.length?1:-1;
+            }
+        }
+        return 0;
+    }
+}

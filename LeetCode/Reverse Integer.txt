@@ -1,0 +1,30 @@
+public class Solution {
+    public int reverse(int x) {
+        
+        if(x>=-9 && x<10)
+            return x;
+        
+        boolean positive = true;
+        
+        String str = String.valueOf(x);
+        
+        if(x<0){
+            positive = false;
+            str = str.substring(1);            
+        }
+        
+        StringBuilder str1 = new StringBuilder(str);
+        str1.reverse();
+        
+        if(!positive){
+            str1.insert(0,"-");
+            if(str1.length()==11 && new String(str1).compareTo(String.valueOf(Integer.MIN_VALUE))>0)
+                return 0;
+        }
+
+        if(str1.length()==10 && new String(str1).compareTo(String.valueOf(Integer.MAX_VALUE))>0)
+            return 0;        
+
+    return Integer.parseInt(new String(str1));
+}
+}
