@@ -1,0 +1,89 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Codec {
+
+    // Encodes a tree to a single string.
+     public String serialize(TreeNode root) {
+        
+        if(root==null)
+            return null;
+        
+        StringBuilder result = new StringBuilder();
+        
+        LinkedList<TreeNode> queue = new LinkedList<TreeNode>();
+        queue.add(root);
+        
+        boolean isLast = false;
+        
+        while(queue.size()!=0 &&  !isLast){
+            int size = queue.size();
+        	isLast = true;
+        	for(int i=0;i<size;i++){
+                TreeNode node = queue.poll();
+                if(node==null){
+                	result.append("null,");
+                	continue;
+                }else{
+                    result.append(node.val);
+                    result.append(",");
+                    queue.add(node.left);
+                    if(node.left!=null)
+                    	isLast = false;
+                    queue.add(node.right);
+                    if(node.right!=null)
+                    	isLast = false;
+                }
+            }
+        }
+        String str = new String(result);
+        str = str.substring(0, str.length()-1);
+        
+        return str;
+    }
+
+    // Decodes your encoded data to tree.
+    public TreeNode deserialize(String data) {
+        if(data==null)
+            return null;
+            
+        String[] array = data.split(",");
+        
+        TreeNode node = new TreeNode(Integer.parseInt(array[0]));
+        TreeNode result = node;
+        LinkedList<TreeNode> queue = new LinkedList<TreeNode>();
+        queue.add(node);
+        
+        int i = 1;
+            
+        while(queue.size()!=0 && i<array.length){
+            node = queue.poll();
+            if(i<array.length && !array[i].equals("null")){
+                TreeNode one = new TreeNode(Integer.parseInt(array[i]));
+                node.left = one;
+                queue.add(one);
+            }else if(i<array.length && array[i].equals("null")){
+                node.left=null;
+            }i++;
+            
+            if(i<array.length && !array[i].equals("null")){
+                TreeNode two = new TreeNode(Integer.parseInt(array[i]));
+                node.right = two;
+                queue.add(two);
+            }else if(i<array.length && array[i].equals("null")){
+                node.right=null;
+            }i++;
+        }
+        
+        return result;
+    }
+}
+// Your Codec object will be instantiated and called as such:
+// Codec codec = new Codec();
+// codec.deserialize(codec.serialize(root));
